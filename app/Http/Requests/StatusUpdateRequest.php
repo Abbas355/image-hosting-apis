@@ -6,11 +6,8 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class SignupUserRequest extends FormRequest
+class StatusUpdateRequest extends FormRequest
 {
-    // protected $redirectRoute = 'error';
-    // public $validator = null;
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,11 +26,9 @@ class SignupUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users',
-            'name' => 'required|max:255',
-            'password' => 'required|min:6|confirmed',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'age' => 'required|integer|max:200'
+            'email' => 'email',
+            'status' => 'required|max:12',
+            'photo_id' => 'required|integer'
         ];
     }
 
@@ -53,6 +48,5 @@ class SignupUserRequest extends FormRequest
           ], 422));
     }
     
-
 
 }

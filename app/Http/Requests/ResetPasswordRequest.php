@@ -18,9 +18,12 @@ class ResetPasswordRequest extends FormRequest
      */
     public function authorize()
     {
-            $ptokens= DB::table('password_resets')->where('token', $this->input('token'))->first();
+            $ptokens=null;
+            if(hash_equals($this->user->tokens->token,$this->input('token'))){
+                $ptokens=$this->user->tokens;
+            }
             if((!is_null($ptokens))&& Carbon::parse($ptokens->created_at)->addMinutes(50)->gte(Carbon::now())){
-                DB::table('password_resets')->where('email', $ptokens->email)->delete();
+                $this->user->tokens->delete();
                 return true;
             }
         return false;

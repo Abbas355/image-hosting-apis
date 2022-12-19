@@ -15,6 +15,8 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'users';
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -24,7 +26,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'photo'
+        'photo',
+        'age'
     ];
 
     /**
@@ -54,5 +57,21 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->attributes['password'] = Hash::make($value);
     }
+
+    
+    /**
+     * Get the tokens associated with the user.
+     */
+    public function tokens()
+    {
+        return $this->hasOne(VerifyToken::class,'user_id');
+    }
    
+         /**
+     * Get the photos associated with the user.
+     */
+    public function photos()
+    {
+        return $this->belongsToMany(Photo::class, 'photo_user', 'user_id', 'photo_id');
+    }
 }

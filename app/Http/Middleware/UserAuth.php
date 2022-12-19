@@ -19,13 +19,14 @@ class UserAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        $user=User::where('email',$request->input('email'))->first();
+       
+        $user=User::where('email',$request->email)->first();
         if($user){
             if($user->email_verified_at==null){
                 return response()->json(['message'=>"please first verify",'status'=>false], 422);
             }
         }else{
-             return response()->json(['message'=>"user not found",'status'=>false], 422);
+             return response()->json(['message'=>"user not found45",'status'=>false], 422);
         }
        
         $request->merge(['user' => $user,]);
