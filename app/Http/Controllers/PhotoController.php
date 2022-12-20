@@ -37,7 +37,7 @@ class PhotoController extends Controller
         $photo=Photo::where('id',$request->photo_id)->first();
         if($photo){
             $user->photos()->detach($request->photo_id);
-            $photo->delete();
+            // $photo->delete();
             return response()->pfResponce('photo deleted successfully',true); 
         }
         return response()->pfResponce('photo not exist',false); 
