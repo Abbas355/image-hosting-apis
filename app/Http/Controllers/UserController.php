@@ -73,8 +73,8 @@ class UserController extends Controller
         $status=false;
         $api_token=Str::random(20);
         if ($user && Hash::check($request->input('password'), $user->password)) {
-            $user->remember_token=$api_token;
-            $user->save();
+            // $user->remember_token=$api_token;
+            // $user->save();
             $user->tokens()->save(new VerifyToken(['token' => $api_token]));
             $data=$user;
             $data['api_token']=$api_token;
